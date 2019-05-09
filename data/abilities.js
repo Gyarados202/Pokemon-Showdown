@@ -4163,6 +4163,15 @@ let BattleAbilities = {
 		rating: 3.5,
 		num: -4,
 	},
+	"parasitization": {
+		desc: "This Pokemon's Normal-type moves become Bug-type moves and have their power multiplied by 1.2. This effect comes after other effects that change a move's type, but before Ion Deluge and Electrify's effects.",
+		shortDesc: "This Pokemon's Normal-type moves become Bug type and have 1.2x power.",
+		onModifyMovePriority: -1,
+		onModifyMove(move, pokemon) {
+			if (move.type === 'Normal' && !['judgment', 'multiattack', 'naturalgift', 'revelationdance', 'technoblast', 'weatherball'].includes(move.id) && !(move.isZ && move.category !== 'Status')) {
+				move.type = 'Bug';
+				move.parasitizationBoosted = true;
+	},
 };
 
 exports.BattleAbilities = BattleAbilities;
